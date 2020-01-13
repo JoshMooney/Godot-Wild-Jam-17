@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Tilemap/DungeonTileset.tres" type="TileSet" id=1]
+
+[node name="DungeonCollidableTileMap" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( -3, 0, 0, -1, 1, 0, -65535, 2, 0, -65534, 2, 0, 1, 2, 0, 2, 2, 0, 131069, 1, 0, 131071, 0, 0 )
