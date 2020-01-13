@@ -15,7 +15,16 @@ var second_chance_active = false
 func _ready():
 	$HealthMeter.set_values(100, health)
 	$SecondChance.stop()
+	
+	#$SecondChance.connect("second_chance_success", self, "_on_second_chance_success")
+	#$SecondChance.connect("second_chance_failed", self, "_on_second_chance_failed")
 	pass
+
+func _on_second_chance_failed():
+	print('Second Chance Failed')
+
+func _on_second_chance_success():
+	print('Second Chance Successful')
 
 # Handles the Physics step for the player
 func _physics_process(delta):

@@ -59,15 +59,14 @@ func _physics_process(delta):
 	if health > health_decay:
 		health_decay = health
 	
-#	if Input.is_action_pressed("ui_up"):
-#		health += 10
-#		set_values(mana, health)
-#	if Input.is_action_pressed("ui_down"):
-#		health -= 10
-#		set_values(mana, health)
-	#if Input.is_action_pressed("ui_up") || Input.is_action_pressed("ui_down"):
-	#	update()
-
+	if Input.is_action_pressed("ui_accept"):
+		health += 10
+		set_values(mana, health)
+	if Input.is_action_just_pressed("ui_focus_next"):
+		health -= 10
+		set_values(mana, health)
+	if Input.is_action_pressed("ui_accept") || Input.is_action_pressed("ui_focus_next"):
+		update()
 
 # Create a bobing effect for following the player
 func bob():

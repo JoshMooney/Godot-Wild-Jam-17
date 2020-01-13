@@ -3,6 +3,9 @@ extends Node2D
 const Key = preload("res://Scenes/Second Chance/Key.tscn")
 const cirlce_r = 50
 
+signal second_chance_success
+signal second_chance_failed
+
 var circle_pos = Vector2(0, 0)
 var angle = 0
 var poolvec2 = PoolVector2Array()
@@ -34,6 +37,8 @@ var second_chance_timer_length
 func _ready():
 	second_chance_timer_length = $SecondChanceTimer.wait_time
 	#start()		# Execute to run in its own scene
+	connect("second_chance_success", get_parent(), "_on_second_chance_success")
+	connect("second_chance_failed", get_parent(), "_on_second_chance_failed")
 	pass
 
 func stop():
@@ -110,13 +115,12 @@ func pollInput():
 			check_key("D")
 
 func success():
-	print("SecondChance: Success")
-	emit_signal("Second Chance Success")
-	self.hide()
+	emit_signal("second_chance_success")
+	hide()
+	key_index = 0
 	
 func failed():
-	print("SecondChance: Failed")
-	emit_signal("Second Chance Failed")
+	emit_signal("second_chance_failed")
 
 func check_key(pressed_key):
 	var current_key = key_list[key_index]
