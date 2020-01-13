@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/axe bandit idle.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Second Chance/HealthMeter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Second Chance/SecondChance.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 12.6939 )
@@ -23,3 +25,9 @@ shape = SubResource( 1 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
+
+[node name="HealthMeter" parent="." instance=ExtResource( 3 )]
+position = Vector2( -13.001, -4.54404 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="SecondChance" parent="." instance=ExtResource( 4 )]

@@ -3,7 +3,7 @@ extends Node2D
 const Key = preload("res://Scenes/Second Chance/Key.tscn")
 const cirlce_r = 50
 
-var circle_pos = Vector2(300, 300)
+var circle_pos = Vector2(0, 0)
 var angle = 0
 var poolvec2 = PoolVector2Array()
 var items = 5
@@ -32,15 +32,37 @@ var current_angle
 var second_chance_timer_length
 
 func _ready():
+	second_chance_timer_length = $SecondChanceTimer.wait_time
+	#start()		# Execute to run in its own scene
+	pass
+
+func stop():
+	self.set_process(false)
+	self.set_physics_process(false)
+	self.set_process_input(false)
+	self.hide()
+	
+func start():
+	key_index = 0
+	failed = false
+	
+	self.set_process(true)
+	self.set_physics_process(true)
+	self.set_process_input(true)
+	
 	randomize()
+	show()
 	calculate_points()
 	select_inputs()
 	place_keys()
-	second_chance_timer_length = $SecondChanceTimer.wait_time
+	updateTimerBar()
 	$SecondChanceTimer.start(second_chance_timer_offset)
-	pass
 	
 func place_keys():
+	for key in key_instances:
+		key.queue_free()
+	key_instances.clear()
+	
 	for index in key_list.size():
 		var new_key = Key.instance()
 		new_key.setOffsetIndex(KEYS[key_list[index]])
@@ -49,6 +71,9 @@ func place_keys():
 		add_child(new_key)
 
 func select_inputs():
+	key_list = []
+	
+	key_list = []
 	for i in items:
 		key_list.append(KEYS.keys()[randi() % KEYS.size()])
 
@@ -96,6 +121,7 @@ func failed():
 func check_key(pressed_key):
 	var current_key = key_list[key_index]
 	if current_key == pressed_key:
+		var c = key_instances[key_index]
 		key_instances[key_index].pass_action()
 		key_index += 1
 	else:
@@ -107,7 +133,7 @@ func check_key(pressed_key):
 		success()
 
 func _draw():
-	draw_timer_meter(circle_pos, 40, 37, current_angle, Color('#71e958'))
+	draw_timer_meter(circle_pos, 40, 30, current_angle, Color('#71e958'))
 	
 	# Draw shape
 	draw_polyline(poolvec2, line_color, line_thickness, aa)
@@ -115,6 +141,7 @@ func _draw():
 func calculate_points():
 	var first = true
 	var radius = cirlce_r - 10
+	poolvec2 = PoolVector2Array()
 	
 	for i in items:
 		# Find angle
