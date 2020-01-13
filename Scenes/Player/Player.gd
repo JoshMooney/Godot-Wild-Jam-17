@@ -20,10 +20,13 @@ func _ready():
 	#$SecondChance.connect("second_chance_failed", self, "_on_second_chance_failed")
 	pass
 
+# Handle Second chance failed 
 func _on_second_chance_failed():
 	print('Second Chance Failed')
 
+# Handle Second Chance Successful 
 func _on_second_chance_success():
+	second_chance_active = false
 	print('Second Chance Successful')
 
 # Handles the Physics step for the player
