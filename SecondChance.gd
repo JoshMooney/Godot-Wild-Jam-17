@@ -19,6 +19,15 @@ enum KEYS {
 	S,
 	D
 }
+enum DIFF {
+	DEBUG,
+	SIMPLE
+	EASY,
+	MED,
+	HARD,
+	V_HARD
+}
+var current_difficuly
 
 var key_list = []
 var key_instances = []
@@ -31,10 +40,12 @@ var starting_position = Vector2()
 var min_angle = -1.6
 var max_angle = 4.7
 var current_angle
+var default_diff = DIFF.EASY
 
 var second_chance_timer_length
 
 func _ready():
+	current_difficuly = default_diff
 	second_chance_timer_length = $SecondChanceTimer.wait_time
 	#start()		# Execute to run in its own scene
 	connect("second_chance_success", get_parent(), "_on_second_chance_success")
@@ -46,7 +57,11 @@ func stop():
 	self.set_physics_process(false)
 	self.set_process_input(false)
 	self.hide()
-	
+
+func set_difficulty(diff):
+	current_difficuly = diff
+	current_difficuly = clamp(current_difficuly, DIFF.SIMPLE, DIFF.V_HARD)
+
 func start():
 	key_index = 0
 	failed = false
@@ -55,6 +70,8 @@ func start():
 	self.set_physics_process(true)
 	self.set_process_input(true)
 	
+	active_difficulty(current_difficuly)
+	
 	randomize()
 	show()
 	calculate_points()
@@ -62,7 +79,42 @@ func start():
 	place_keys()
 	updateTimerBar()
 	$SecondChanceTimer.start(second_chance_timer_offset)
-	
+
+func increase_difficulty():
+	current_difficuly += 1
+	set_difficulty(current_difficuly)
+
+func decrease_difficulty():
+	current_difficuly -= 1
+	set_difficulty(current_difficuly)
+
+func active_difficulty(current_difficuly):
+	match current_difficuly:
+		DIFF.DEBUG:
+			items = 3
+			$SecondChanceTimer.set_wait_time(10)
+			print('Second Chance: Difficulty is Simple')
+		DIFF.SIMPLE:
+			items = 4
+			$SecondChanceTimer.set_wait_time(7)
+			print('Second Chance: Difficulty is Easy')
+		DIFF.EASY:
+			items = 4
+			$SecondChanceTimer.set_wait_time(6)
+			print('Second Chance: Difficulty is Medium')
+		DIFF.MED:
+			items = 5
+			$SecondChanceTimer.set_wait_time(6)
+			print('Second Chance: Difficulty is Medium')
+		DIFF.HARD:
+			items = 5
+			$SecondChanceTimer.set_wait_time(5)
+			print('Second Chance: Difficulty is Hard')
+		DIFF.V_HARD:
+			items = 6
+			$SecondChanceTimer.set_wait_time(5)
+			print('Second Chance: Difficulty is Very Hard')
+
 func place_keys():
 	for key in key_instances:
 		key.queue_free()
@@ -115,17 +167,19 @@ func pollInput():
 			check_key("D")
 
 func success():
+	$SecondChanceTimer.stop()
 	emit_signal("second_chance_success")
 	hide()
 	key_index = 0
 	
 func failed():
+	stop()
 	emit_signal("second_chance_failed")
 
 func check_key(pressed_key):
 	var current_key = key_list[key_index]
 	if current_key == pressed_key:
-		var c = key_instances[key_index]
+		var c = key_instances[key_index] 
 		key_instances[key_index].pass_action()
 		key_index += 1
 	else:
