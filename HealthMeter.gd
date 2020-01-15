@@ -50,7 +50,6 @@ func get_current_angle(v):
 	var value = ((min_angle * -1) + max_angle) / 100
 	return max_angle - (v * value)
 
-# Debuging functionality
 func _physics_process(delta):
 	bob()
 	update()
@@ -58,15 +57,15 @@ func _physics_process(delta):
 		health_decay -= decay_speed
 	if health > health_decay:
 		health_decay = health
-	
-	if Input.is_action_pressed("ui_accept"):
-		health += 10
-		set_values(mana, health)
-	if Input.is_action_just_pressed("ui_focus_next"):
-		health -= 10
-		set_values(mana, health)
-	if Input.is_action_pressed("ui_accept") || Input.is_action_pressed("ui_focus_next"):
-		update()
+#	# Debugging features
+#	if Input.is_action_pressed("ui_accept"):
+#		health += 10
+#		set_values(mana, health)
+#	if Input.is_action_just_pressed("ui_focus_next"):
+#		health -= 10
+#		set_values(mana, health)
+#	if Input.is_action_pressed("ui_accept") || Input.is_action_pressed("ui_focus_next"):
+#		update()
 
 # Create a bobing effect for following the player
 func bob():

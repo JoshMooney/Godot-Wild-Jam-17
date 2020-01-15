@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Objective Arrow/ObjectiveArrow.gd" type="Script" id=1]
+[ext_resource path="res://Assets/objective_arrow/arrow.png" type="Texture" id=2]
+
+[node name="ObjectiveArrow" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ArrowSprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
