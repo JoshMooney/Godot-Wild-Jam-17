@@ -75,11 +75,13 @@ func pollInput():
 		# Handle movement on Y Axis
 		if Input.is_action_pressed("ui_up"):
 			velocity.y = -Y_SPEED
-			#$AnimatedSprite.play("run_up")
+			if velocity.x == 0:
+				$AnimatedSprite.play("run_up")
 			looking_diection = Vector2(0, -1)
 		elif Input.is_action_pressed("ui_down"):
 			velocity.y = Y_SPEED
-			#$AnimatedSprite.play("run_down")
+			if velocity.x == 0:
+				$AnimatedSprite.play("run_down")
 			looking_diection = Vector2(0, 1)
 		else:
 			velocity.y = 0
@@ -153,5 +155,7 @@ func _on_AnimatedSprite_animation_finished():
 		is_attacking = false
 
 func _on_Attack_body_entered(body):
-	if body.is_in_group("Enemy"):
+	var is_enemy = body.is_in_group("Enemy")
+	
+	if is_enemy:
 		body.hit(player_damage)

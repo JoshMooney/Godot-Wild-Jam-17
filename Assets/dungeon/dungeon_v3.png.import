@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/axe bandit idle.png-4ae906c46dad7e0317f60d7bb7e37a92.stex"
+path="res://.import/dungeon_v3.png-bcd0369199196e9ae11eadce4723a987.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/axe bandit idle.png"
-dest_files=[ "res://.import/axe bandit idle.png-4ae906c46dad7e0317f60d7bb7e37a92.stex" ]
+source_file="res://Assets/dungeon/dungeon_v3.png"
+dest_files=[ "res://.import/dungeon_v3.png-bcd0369199196e9ae11eadce4723a987.stex" ]
 
 [params]
 
