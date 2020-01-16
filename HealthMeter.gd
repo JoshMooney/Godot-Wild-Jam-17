@@ -75,4 +75,6 @@ func bob():
 		bob_direction = -bob_direction
 	if pos.y > starting_position.y + bob_limits.y:
 		bob_direction = -bob_direction
+		
+	$SecondChanceLogo.set_position(pos)
 	pass

@@ -29,6 +29,16 @@ func _ready():
 	$Attack/Down_CollisionShape2D.disabled = true
 	$Attack/Up_CollisionShape2D.disabled = true
 	$Attack/Horizontal_CollisionShape2D.disabled = true
+	setSecondChanceLogo(has_second_chance)
+	pass
+
+func setSecondChanceLogo(sc):
+	has_second_chance = sc
+	
+	if has_second_chance:
+		$HealthMeter/SecondChanceLogo.show()
+	else:
+		$HealthMeter/SecondChanceLogo.hide()
 	pass
 
 # Handle Second chance failed 
@@ -123,6 +133,7 @@ func hit(dmg):
 	$HealthMeter.set_values(100, health)
 	if health == 0:
 		if has_second_chance:
+			setSecondChanceLogo(false)
 			second_chance_active = true
 			$SecondChance.start()
 		else:
