@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/Tilemap/GroundTileMap_v2.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/Tilemap/GroundTileMap_v3.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Tilemap/AStarMapScript.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Enemy/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Tilemap/AStar_char.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=5]
 
 [node name="AStarTest" type="Node2D"]
 position = Vector2( -0.194275, -2.80081 )
@@ -24,9 +25,12 @@ position = Vector2( 429.218, 329.733 )
 z_index = 1
 script = ExtResource( 4 )
 
-[node name="Enemy" parent="Position2D" instance=ExtResource( 3 )]
-position = Vector2( 1.70662, 0.233414 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512.826, 303.197 )
 current = true
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 87.4371, 109.103 )
+
+[node name="Enemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 430.924, 329.966 )

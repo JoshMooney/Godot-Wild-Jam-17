@@ -25,7 +25,7 @@ func _ready():
 	map_size = calculate_map_bounds()
 	var walkable_cells_list = astar_add_walkable_cells(obstacles)
 	astar_connect_walkable_cells(walkable_cells_list)
-	astar_connect_walkable_cells_diagonal(walkable_cells_list)
+	#astar_connect_walkable_cells_diagonal(walkable_cells_list)
 
 func calculate_map_bounds():
 	var _min = Vector2()
